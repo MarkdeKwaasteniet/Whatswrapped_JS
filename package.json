@@ -1,0 +1,21 @@
+{
+  "name": "whatswrapped_js_full",
+  "version": "1.0.0",
+  "description": "Whatswrapped written in JS only",
+  "main": "Visuals.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "whatswrapped",
+    "JS"
+  ],
+  "author": "Mark de Kwaasteniet",
+  "license": "ISC",
+  "dependencies": {
+    "@node_modules/emoji-data": "^0.2.0",
+    "@node_modules/fs": "^0.0.1-security",
+    "@node_modules/moment": "^2.29.4",
+    "@node_modules/require": "^2.4.20"
+  }
+}

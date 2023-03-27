@@ -1,0 +1,449 @@
+<!-- <html lang="en"> -->
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <!-- <script src="https://requirejs.org/docs/release/2.3.6/minified/require.js"></script> -->
+        <!-- <script src="bundle.js"></script> -->
+        <script src="https://d3js.org/d3.v3.min.js"></script>
+        <script src = 'd3.js'></script>
+        <!-- <script src = 'require.js'></script> -->
+        <script src="moment.js"></script>
+        <script src = 'https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.min.js'></script>
+        <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+        <meta property='og:title' content='ThunderMuffin WhatsWrapped'/>
+        <meta property='og:image' content='https://github.com/cuthchow/college-majors-visualisation/blob/master/preview.png'/>
+        <meta property='og:description' content='This interactive, scrollable data visualisation will take you on a journey through your Whatsapp Wrapped of 2022'/>
+        <meta property='og:url' content='https://markdekwaasteniet.github.io/whatswrapped.github.io/'/>
+    
+    
+        <!-- <title>ThunderMuffin WhatsWrapped</title> -->
+    </head>
+    <body>
+        <div class="intro_text">
+        <br>
+        <br>
+        <h1>WhatsWrapped &#128172 </h1>
+        <br>
+        <br>
+        <h2>Chat Export Process: </h2>
+          <!-- The four columns
+          <div class="row">
+            <div class="column">
+              <img src="Whatsapp_settings.jpeg" alt="Step 1: Go to Settings" style="width:100%" onclick="myFunction(this);">
+            </div>
+            <div class="column">
+              <img src="Whatsapp_chat.jpeg" alt="Step 2: Go to Chats" style="width:100%" onclick="myFunction(this);">
+            </div>
+            <div class="column">
+              <img src="Whatsapp_export.jpeg" alt="Step 3: Go to Export Chat" style="width:100%" onclick="myFunction(this);">
+            </div>
+            <div class="column">
+              <img src="Whatsapp_group.jpeg" alt="Step 4: Select Chat and Send the text file to yourself" style="width:100%" onclick="myFunction(this);">
+            </div>
+            <div class="column">
+                <img src="Whatsapp_media.jpeg" alt="Step 5: Export Without Media" style="width:100%" onclick="myFunction(this);">
+              </div>
+          </div>
+          
+          <!-- The expanding image container -->
+          <!-- <div class="img_container">
+            <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
+            <img id="expandedImg" style="width:100%">
+            <div id="imgtext"></div>
+          </div> --> 
+          <div class="row">
+            <div class="column">
+                <div class="block" onclick="myFunction('Whatsapp_settings.jpeg', 'Step 1: Go to Settings')">1</div>
+            </div>
+            <div class="column">
+                <div class="block" onclick="myFunction('Whatsapp_chat.jpeg', 'Step 2: Go to Chats')">2</div>
+            </div>
+            <div class="column">
+                <div class="block" onclick="myFunction('Whatsapp_export.jpeg', 'Step 3: Go to Export Chat')">3</div>
+            </div>
+            <div class="column">
+                <div class="block" onclick="myFunction('Whatsapp_group.jpeg', 'Step 4: Select Chat and Send the text file to yourself')">4</div>
+            </div>
+            <div class="column">
+                <div class="block" onclick="myFunction('Whatsapp_media.jpeg', 'Step 5: Export Without Media')">5</div>
+            </div>
+        </div>
+        
+        <!-- The expanding image container -->
+        <div class="img_container">
+            <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
+            <img id="expandedImg" style="width:100%">
+            <div id="imgtext"></div>
+        </div>
+        <br>
+        <br>
+        <h2>Select Your Analysis Specifics: </h2>
+        
+        <div class = "user_options"> 
+        <div class = "option_button_statistic">
+        <fieldset>
+            <legend>Select a statistic:</legend>
+            
+            <div>
+                <input type="radio" id="Total" name="drone" value="Total" checked>
+                <label for="Total">Total</label>
+              </div>
+
+            <div>
+              <input type="radio" id="Mean" name="drone" value="Mean">
+              <label for="Mean">Mean</label>
+            </div>
+
+            <div class="help-tip">
+                <p>Total: This is the sum of all the messages. "Anna sent the most words during the year." <br>
+                    <br>
+                    Mean: This is the average. Thus the totals divided by the amount of messages. "Peter, on average sent the most words during the year." <br><br>
+                    Difference: Although Anna sent the most words in total, Peter sent fewer messages, but used more words on average.
+                </p>
+            </div>
+        
+        </fieldset>
+    </div>
+        <div class = "option_button_year">
+            <fieldset>
+                <legend>Select year:</legend>
+                
+                <div>
+                    <select name="year" id="year">
+                        <option value=2019 >2019</option>
+                        <option value=2020 > 2020</option>
+                        <option value=2021 > 2021</option>
+                        <option value=2022 selected> 2022</option>
+                      </select>
+                  </div>
+    
+            </fieldset>
+        </div>
+        <div class = "option_button_time">
+            <fieldset>
+                <legend>Select time format:</legend>
+                
+                <div>
+                    <select name="time_format" id="time_format">
+                        <option value="MM/DD/YY, HH:mm:ss"> "DD/MM/YY, HH:mm:ss" </option>
+                        <option value="DD/MM/YY, HH:mm:ss" > "MM/DD/YY, HH:mm:ss"</option>
+                        <option value="DD/MM/YYYY, HH:mm:ss" > "MM/DD/YYYY, HH:mm:ss"</option>
+                        <option value="DD-MM-YYYY HH:mm:ss" selected> "DD-MM-YYYY HH:mm:ss"</option>
+                        <option value="DD.MM.YYYY, HH:mm:ss" > "DD.MM.YYYY, HH:mm:ss"</option>
+                        <option value="YYYY.MM.DD, HH:mm:ss" > "DD.MM.YY, HH:mm:ss"</option>
+                        <option value="YYYY/MM/DD, HH:mm:ss" > "MM/DD/YY, HH:mm:ss"</option>
+                        <option value="YYYY-MM-DD, HH:mm:ss" > "MM/DD/YY, HH:mm:ss"</option>
+                      </select>
+                  </div>
+    
+            </fieldset>
+        </div>
+    </div>
+    </div>
+        <div class="container">
+        <div>
+            <label for="file-upload" class="custom-file-upload">
+                <i class="fa fa-cloud-upload"></i> Upload File
+            </label>
+            <input id="file-upload" type="file"/>
+        </div>
+    </div>
+        <div id="tooltip"></div>
+        <div id="graphic">
+            <div id="sections">
+                <section class="step">
+                        <div class="title"></div>
+                        <div class="Picture_text">
+                        <br><br><br>
+                        <h1>WhatsWrapped &#128172 </h1>
+                        <h1>
+                            <span class="selected_year"></span>
+                        </h1>
+                    </div>
+                        
+                    </section>
+                    <section class="step">
+                        <div class="vraag">
+                        <p>
+                            <h2>Who has spammed the most in <span class="selected_year"></span>?</h2>
+        
+                        </p>
+                    </div>
+                    </section>
+                    <section class="step">
+                        <div class="vraag">
+                        <p>
+                            <h2> 
+                                <span id="Message"></span>
+                            </h2>
+                            <div class="help-tip-statistic">
+                                <p>This is the person who, <span class="word_statistic"></span> sent the most messages in <span class="selected_year"></span> <br>
+                                </p>
+                            </div>
+                        </p>
+                    </div>
+                    </section>
+                    <section class="step">
+                        <div class="vraag">
+                        <p>
+                            <h2>Who was the most emotional in <span class="selected_year"></span>?</h2>
+        
+                        </p>
+                    </div>
+                    </section>
+                    <section class="step">
+                        <div class="vraag">
+                        <p>
+                            <h2> 
+                                <span id="Emoji"></span>
+                            </h2>
+                                <div class="help-tip-statistic">
+                                <p>This is the person who, <span class="word_statistic"></span> sent the emoji's in <span class="selected_year"></span>. <br>
+                                </p>
+                            </div>
+                        
+                            
+                        </p>
+                    </div>
+                    </section>
+                    <section class="step">
+                        <div class="vraag">
+                        <p>
+                            <h2>Who was the biggest party animal during  <span class="selected_year"></span>?</h2>
+                        </p>
+                    </div>
+                    </section>
+                    <section class="step">
+                        <div class="vraag">
+                        <p>
+                            <h2>  <span id="Night"></span> </h2>
+                            <div class="help-tip-statistic">
+                                <p>This is the person who, <span class="word_statistic"></span> sent the most messages between 12pm and 6am in <span class="selected_year"></span>. <br>
+                                </p>
+                            </div>
+                            
+                        </p>
+                    </div>
+                    </section>
+                    <section class="step">
+                        <div class="vraag">
+                        <p>
+                            <h2>Who was the biggest morning person of  <span class="selected_year"></span>?</h2>
+                        </p>
+                    </div>
+                    </section>
+                    <section class="step">
+                        <div class="vraag">
+                        <p>
+                            <h2>  <span id="Morning"></span> </h2>
+                            <div class="help-tip-statistic">
+                                <p>This is the person who, <span class="word_statistic"></span> sent the most messages between 6am and 12am in <span class="selected_year"></span>. <br>
+                                </p>
+                            </div>
+                        </p>
+                    </div>
+                    </section>
+                    <section class="step">
+                        <div class="vraag">
+                        <p>
+                            <h2>Who needed the most help in <span class="selected_year"></span>?</h2>
+                        </p>
+                    </div>
+                    </section>
+                    <section class="step">
+                        <div class="vraag">
+                            <p>
+                                <h2>  <span id="Quest"></span> </h2>
+                                <div class="help-tip-statistic">
+                                    <p>This is the person who, <span class="word_statistic"></span> sent the most question marks in <span class="selected_year"></span>. <br>
+                                    </p>
+                                </div>
+                            </p>
+                    </div>
+                    </section>
+                    <section class="step">
+                        <div class="vraag">
+                        <p>
+                            <h2>Who brought the most love during  <span class="selected_year"></span> in the group?</h2>
+                        </p>
+                    </div>
+                    </section>
+                    <section class="step">
+                        <div class="vraag">
+                            <p>
+                                <h2>  <span id="Heart"></span> </h2>
+                                <div class="help-tip-statistic">
+                                    <p>This is the person who, <span class="word_statistic"></span> sent the most heart (❤️) emoji's in <span class="selected_year"></span>. <br>
+                                    </p>
+                                </div>
+                            </p>
+                    </div>
+                    </section>
+                    <section class="step">
+                        <div class="vraag">
+                        <p>
+                            <h2>Who has ROFL'ed the most in  <span class="selected_year"></span>?</h2>
+                        </p>
+                    </div>
+                    </section>
+                    <section class="step">
+                        <div class="vraag">
+                            <p>
+                                <h2>  <span id="Laugh"></span> </h2>
+                                <div class="help-tip-statistic">
+                                    <p>This is the person who, <span class="word_statistic"></span> sent the most 😂 emoji's in <span class="selected_year"></span>. <br>
+                                    </p>
+                                </div>
+                            </p>
+                    </div>
+                    </section>
+                    <section class="step">
+                        <div class="vraag">
+                        <p>
+                            <h2>Who replied the longest in <span class="selected_year"></span>?</h2>
+                        </p>
+                    </div>
+                    </section>
+                    <section class="step">
+                        <div class="vraag">
+                            <p>
+                                <h2>  <span id="Words"></span> </h2>
+                                <div class="help-tip-statistic">
+                                    <p>This is the person who, <span class="word_statistic"></span> sent the most words in <span class="selected_year"></span>. <br>
+                                    </p>
+                                </div>
+                            </p>
+                    </div>
+                    </section>
+                    <!-- <section class="step">
+                        <div class="vraag">
+                        <p>
+                            <h2>Wie heeft gemiddeld het meeste gelachen?</h2>
+                        </p>
+                    </div>
+                    </section>
+                    <section class="step">
+                        <div class="vraag">
+                        <p>
+                            <h2>Toet</h2>
+                            Wie heeft gemiddeld het meest gelachen?
+                            
+                            Toet
+                            
+                            Dit is ook wel te begrijpen en niet zo belachelijk
+                            want met al die drugs om 2u snachts in je mik, is het ook wel te makkelijk
+                            
+                            ---
+                        
+                        </p>
+                    </div>
+                    </section> -->
+                    <section class="step">
+                        <div class="vraag">
+                        <p>
+                            <h2>Who has Haha'ed the most in  <span class="selected_year"></span>?</h2>
+                        </p>
+                    </div>
+                    </section>
+                    <section class="step">
+                        <div class="vraag">
+                            <p>
+                                <h2>  <span id="Haha"></span> </h2>
+                                <div class="help-tip-statistic">
+                                    <p>This is the person who, <span class="word_statistic"></span> used the most "haha" in their messages <span class="selected_year"></span>. <br>
+                                    </p>
+                                </div>
+                            </p>
+                    </div>
+                    </section>
+                    <!-- <section class="step">
+                        <div class="vraag">
+                        <p>
+                            <h2>Wie was in 2022 het meest emotioneel?</h2>
+                        </p>
+                    </div>
+                    </section>
+                    <section class="step">
+                        <div class="vraag">
+                        <p>
+                            <h2>Omar</h2>
+                        Omar dacht, het is fijn als ik dit jaar al mijn emoties in de Thundermuffin zet.<br>
+                        Als je volgend jaar weer zoveel Emoji's stuurt dan gooi ik je uit de chat. <br>
+                        </p>
+                    </div>
+                </section>
+                <section class="step">
+                    <div class="vraag">
+                    <p>
+                        <h2>Wie heeft het langste bericht aan elkaar gebreeën?</h2>
+                    </p>
+                </div>
+                </section>
+                <section class="step">
+                    <div class="vraag">
+                    <p>
+                        <h2>Steven</h2>
+                    Dit soort lange berichten in de chat kostte mij in 2022 uren en uren.<br>
+                    Ik ben bang dat Steven volgende jaar ook ineens voice memo's gaat sturen. <br>
+                    <br>
+                    </p>
+                </div>
+                </section>
+                <section class="step">
+                    <div class="vraag">
+                    <p>
+                        <h2>Wie had langste woord gemaakt?</h2>
+                    </p>
+                </div>
+                </section>
+                <section class="step">
+                    <div class="vraag">
+                    <p>
+                        <h2>Omar</h2>
+                    Ik weet niet of dit woord terug de vinden is in de dikke van dale.<br>
+                    Maar Omar stopt wel vaker veel diarree in zijn verhalen. <br>
+                    <br>
+                    <b>Woord:</b> Hottestotterputintentoonstelling
+                    </p>
+                </div>
+                </section>
+                <section class="step">
+                    <div class="vraag">
+                    <p>
+                        <h2>Wie was het meest gefrustreerd in 2022?</h2>
+                    </p>
+                </div>
+                </section>
+                <section class="step">
+                    <div class="vraag">
+                    <p>
+                        <h2>Steven</h2>
+                    Bij een spel dacht ik altijd twee keer na voordat ik Steven versloeg. <br>
+                    Het gat in de muur op de kinkerstraat zegt volgens mij genoeg.<br>
+                    </p>
+                </div>
+                </section>
+                <section class="step">
+                    <div class="vraag">
+                    <p>
+                        <h2>Ik hoop dat jullie genoten hebben van deze analyse</h2>
+                        <h2>Zorg dat je dit kritiek in dit jaar niet weet te verliezen</h2>
+                    </p>
+                </div>
+                </section> -->
+        
+                </div>
+                <div id="vis">
+                </div>
+                <div class="fixed-text">&#9662 Scroll To Continue</div>
+            
+        </div>
+        </div>
+        <script src = 'scroller.js'></script>
+        <script src = 'Visuals.js'></script>
+        <script src = 'Visuals_2.js'></script>
+    
+    </body>
+    </html>
+    
